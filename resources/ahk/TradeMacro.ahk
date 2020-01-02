@@ -537,6 +537,15 @@ TradeFunc_Main(openSearchInBrowser = false, isAdvancedPriceCheck = false, isAdva
 	}
 
 	If (Item.IsUnique) {
+		;checks for PoENinja search enabled
+		If (TradeOpts.PoENinjaSearch and (url := TradeFunc_GetPoENinjaItemUrl(TradeOpts.SearchLeague, Item))) {
+			TradeFunc_OpenUrlInBrowser(url)
+			If (not TradeOpts.CopyUrlToClipboard) {
+				SetClipboardContents("")
+			}
+			return
+		}
+		
 		; returns mods with their ranges of the searched item if it is unique and has variable mods
 		uniqueWithVariableMods :=
 		uniqueWithVariableMods := TradeFunc_FindUniqueItemIfItHasVariableRolls(Name, Item.IsRelic)
@@ -1255,6 +1264,15 @@ TradeFunc_Main(openSearchInBrowser = false, isAdvancedPriceCheck = false, isAdva
 		maps
 		*/
 	If (Item.IsMap) {
+		;checks for PoENinja search enabled
+		If (TradeOpts.PoENinjaSearch and (url := TradeFunc_GetPoENinjaItemUrl(TradeOpts.SearchLeague, Item))) {
+			TradeFunc_OpenUrlInBrowser(url)
+			If (not TradeOpts.CopyUrlToClipboard) {
+				SetClipboardContents("")
+			}
+			return
+		}
+		
 		; add Item.subtype to make sure to only find maps
 		RegExMatch(Item.Name, "i)The Beachhead.*", isHarbingerMap)
 		RegExMatch(Item.SubType, "i)Unknown Map", isUnknownMap)
